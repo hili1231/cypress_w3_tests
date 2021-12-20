@@ -13,6 +13,9 @@ Running Locally
 - cypress - npm install cypress --save-dev
 - Mochawsome reporter - npm i --save-dev cypress-mochawesome-reporter --save-dev
 - Multi reporter - npm install cypress-multi-reporters --save-dev
-- 
+
 **To run tests**
-docker-compose up. 
+- build docker image - docker build -t cypress_w3_tests .
+- run - docker-compose up
+
+
