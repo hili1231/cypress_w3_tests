@@ -23,10 +23,15 @@ jobs:
         with:
           name: build
           path: build
-
+          
+      - name: Download the build folders
+        run: docker-compose up
+        
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
           # Specify Browser since container image is compile with Firefox
           browser: firefox
           build: yarn build
+        
+
