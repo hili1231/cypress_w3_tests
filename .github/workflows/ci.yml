@@ -1,35 +1,22 @@
 name: ci
-
-on: [push]
-
+on:
+  push:
+    branches:
+      - main
 jobs:
-  # install:
-  # ....
-  cypress-run:
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node12.18.3-chrome87-ff82
+  test-http:
+    runs-on: ubuntu-20.04
     steps:
-      - name: Checkout
+      - name: Check out code 🛎
         uses: actions/checkout@v2
 
-      - name: Download the build folders
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: build
+      - name: Run docker-compose
+        run: docker-compose up -d
 
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run firefox
+      - name: Cypress tests
         uses: cypress-io/github-action@v2
         with:
-          # Specify Browser since container image is compile with Firefox
-          browser: firefox
-          build: yarn build
-          
-      - name: Cypress run chrome
-        uses: cypress-io/github-action@v2
-        with:
-          # Specify Browser since container image is compile with Firefox
-          browser: chrome
-          build: yarn build
+          build: npm run stop-only
+          start: npm start
+          record: true
+          group: 'All GH Tests'
