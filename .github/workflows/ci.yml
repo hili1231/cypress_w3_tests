@@ -1,22 +1,32 @@
 name: ci
-on:
-  push:
-    branches:
-      - main
+
+on: [push]
+
 jobs:
-  test-http:
-    runs-on: ubuntu-20.04
+  # install:
+  # ....
+  cypress-run:
+    runs-on: debian-latest
+    container: cypress/included:9.1.1
     steps:
-      - name: Check out code 🛎
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Run docker-compose
-        run: docker-compose up -d
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Cypress tests
+      - name: Download the build folders
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: build
+
+      - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          build: npm run stop-only
-          start: npm start
-          record: true
-          group: 'All GH Tests'
+          # Specify Browser since container image is compile with Firefox
+          browser: firefox
+          build: yarn build
