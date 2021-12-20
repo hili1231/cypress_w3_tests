@@ -1,37 +1,12 @@
-name: ci
-
+name: E2E on Chrome
 on: [push]
-
 jobs:
-  # install:
-  # ....
   cypress-run:
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node12.18.3-chrome87-ff82
+    runs-on: ubuntu-20.04
+    # let's make sure our tests pass on Chrome browser
+    name: E2E on Chrome
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
+      - uses: actions/checkout@v2
+      - uses: cypress-io/github-action@v2
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
-      - name: Download the build folders
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: build
-          
-      - name: Download the build folders
-        run: docker-compose up
-        
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          # Specify Browser since container image is compile with Firefox
-          browser: firefox
-          build: yarn build
-        
-
+          browser: chrome
