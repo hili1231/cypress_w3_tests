@@ -1,0 +1,13 @@
+name: ci
+# run all tests on the main branch
+on:
+  push:
+    branches:
+      - main
+jobs:
+  run-tests:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Run docker-compose
+#        build: docker build -t cypress_w3_tests .
+        run: docker-compose up -d
