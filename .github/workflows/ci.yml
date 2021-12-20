@@ -1,13 +1,28 @@
 name: ci
-# run all tests on the main branch
-on:
-  push:
-    branches:
-      - main
+
+on: [push]
+
 jobs:
-  run-tests:
-    runs-on: ubuntu-20.04
+  # install:
+  # ....
+  cypress-run:
+    runs-on: ubuntu-latest
+    container: cypress/included:9.1.1
     steps:
-      - name: Run docker-compose
-#        build: docker build -t cypress_w3_tests .
-        run: docker-compose up -d
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: build
+
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          # Specify Browser since container image is compile with Firefox
+          browser: firefox
+          build: yarn build
