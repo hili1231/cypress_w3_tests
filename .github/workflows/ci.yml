@@ -1,4 +1,4 @@
-name: E2E on Chrome
+name: E2E on Chrome and firefox
 on: [push]
 jobs:
   cypress-run:
@@ -10,3 +10,7 @@ jobs:
       - uses: cypress-io/github-action@v2
         with:
           browser: chrome
+      - uses: actions/checkout@v2
+      - uses: cypress-io/github-action@v2
+        with:
+          browser: firefox
