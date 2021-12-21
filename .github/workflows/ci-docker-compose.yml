@@ -4,11 +4,6 @@ on:
   push:
     branches:
     - main
-    - features/**
-    - dependabot/**
-  pull_request:
-    branches:
-    - main
 
 jobs:
   docker:
@@ -18,6 +13,19 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+    - name: Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: user/app:latest
 
     - name: Start containers
       run: docker-compose -f "docker-compose.yml" up -d --build
