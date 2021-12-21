@@ -2,7 +2,7 @@ version: "3.8"
 services:
   # Cypress test using Chrome browser
   e2e-chrome:
-    image: "cypress_w3_tests"
+    image: "cypress/included:9.1.1"
     command: "chrome:test"
     volumes:
       - ./cypress/videos:/cypress-docker/cypress/videos
@@ -10,7 +10,7 @@ services:
 
   # Cypress test using Firefox browser
   e2e-firefox:
-    image: "cypress_w3_tests"
+    image: "cypress/included:9.1.1"
     command: "firefox:test"
     environment:
       - DEBUG=cypress:server:browsers:firefox-util,cypress:server:util:process_profiler
