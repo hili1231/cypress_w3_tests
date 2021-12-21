@@ -32,7 +32,7 @@ jobs:
           if-no-files-found: error
           path: build
           
-  ui-chrome-tests:
+  chrome-tests:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome88-ff89
@@ -61,10 +61,10 @@ jobs:
           browser: chrome
           record: true
           parallel: true
-          group: "UI - Chrome"
+          group: "Chrome"
           spec: cypress/integration/*
 
-  ui-firefox-tests:
+  firefox-tests:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -94,5 +94,5 @@ jobs:
           browser: firefox
           record: true
           parallel: true
-          group: "UI - Firefox"
+          group: "Firefox"
           spec: cypress/integration*
