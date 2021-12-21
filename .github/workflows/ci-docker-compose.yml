@@ -30,9 +30,6 @@ jobs:
         tags: cypress_w3_tests
 
     - name: Start containers
-      run: docker-compose -f "docker-compose.yml" up -d --build
-
-    - name: Run tests
       run: docker-compose -f "docker-compose.yml" up
 
     - name: Stop containers
