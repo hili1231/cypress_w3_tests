@@ -27,7 +27,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: false
-        tags: cypress_w3_tests
+        tags: cypress_w3_tests_default
 
     - name: Start containers
       run: docker-compose -f "docker-compose.yml" up
