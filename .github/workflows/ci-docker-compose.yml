@@ -28,12 +28,6 @@ jobs:
       with:
         push: false
         tags: cypress_w3_tests_default
-    - name: echo image
-      run: echo $(docker images)
-    - name: run container
-      uses: addnab/docker-run-action@v3
-      with:
-        image: cypress_w3_tests_default
 
     - name: Start containers
       run: docker-compose -f "docker-compose.yml" up
