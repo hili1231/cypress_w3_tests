@@ -15,7 +15,7 @@ Running Locally
 - Multi reporter - npm install cypress-multi-reporters --save-dev
 
 **To run tests**
-- build docker image - docker build -t cypress_w3_tests .
+- build docker image - docker build -t hili12311/cypress_w3_tests:test .
 - run - docker-compose up
 
 
